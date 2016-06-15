@@ -1,21 +1,10 @@
-# Files Field Type
+# Configuration
 
-- [Introduction](#introduction)
-- [Configuration](#configuration)
-- [Output](#output)
+- [Basic Configuration](#basic-configuration)
 
+<hr>
 
-<a name="introduction"></a>
-## Introduction
-
-`anomaly.field_type.files`
-
-The files field type provides a multiple file uploader input.
-
-
-<a name="configuration"></a>
-## Configuration
-
+<a name="basic-configuration"></a>
 **Example Definition:**
 
     protected $fields = [
@@ -69,19 +58,3 @@ The minimum number of allowed uploads. By default no minimum is enforced.
 The maximum number of allowed uploads. By default no maximum is enforced.
 
 
-<a name="output"></a>
-## Output
-
-This field type returns a file collection instance as a value. You may access the collection and it's items as normal.
-
-**Examples:**
-
-    // Twig usage
-    {% for file in entry.example %}
-        File {{ loop.index }} is a {{ file.mime_type }}.
-    {% endfor %}
-    
-    // API usage
-    foreach ($entry->example as $k => $file) {
-        echo "File {$k} is a {$file->getMimeType()}";
-    }
