@@ -1,5 +1,6 @@
 <?php namespace Anomaly\FilesFieldType;
 
+use Anomaly\FilesModule\File\Contract\FileInterface;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypeAccessor;
 use Anomaly\Streams\Platform\Entry\Contract\EntryInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,7 +36,7 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
         }
 
         if ($value instanceof Collection) {
-            $this->fieldType->getRelation()->sync($this->organizeSyncValue($value->filter()->all()));
+            $this->fieldType->getRelation()->sync($this->organizeSyncValue($value->all()));
         }
 
         if ($value instanceof EntryInterface) {
@@ -65,15 +66,29 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
      */
     protected function organizeSyncValue(array $value)
     {
-        $value = array_filter($value);
+        return array_filter(
+            array_combine(
+                array_map(
+                    function ($value) {
 
-        return array_combine(
-            array_values($value),
-            array_map(
-                function ($key) {
-                    return ['sort_order' => $key];
-                },
-                array_keys($value)
+                        if (is_numeric($value)) {
+                            return $value;
+                        }
+
+                        if ($value instanceof FileInterface) {
+                            return $value->getId();
+                        }
+
+                        return null;
+                    },
+                    array_values($value)
+                ),
+                array_map(
+                    function ($key) {
+                        return ['sort_order' => $key];
+                    },
+                    array_keys($value)
+                )
             )
         );
     }
