@@ -47,7 +47,7 @@ $(function () {
             $(this).closest('tr').addClass('success').fadeOut();
 
             wrapper.find('.selected').load(
-                '/streams/files-field_type/selected?uploaded=' + selected.join(','),
+                REQUEST_ROOT_PATH + '/streams/files-field_type/selected?uploaded=' + selected.join(','),
                 function () {
                     wrapper.sort();
                 }
