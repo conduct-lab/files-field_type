@@ -22,7 +22,7 @@
 <input
         type="hidden"
         name="{{ field_type.input_name }}"
-        value="{{ field_type.value.lists('id')|join(',') }}"
+        value="{{ field_type.ids|join(',') }}"
         {{ html_attributes(field_type.attributes) }}
         {{ field_type.disabled ? 'disabled' }}
         {{ field_type.readonly ? 'readonly' }}>

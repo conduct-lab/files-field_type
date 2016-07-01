@@ -4,6 +4,7 @@ use Anomaly\FilesFieldType\Table\ValueTableBuilder;
 use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
+use Anomaly\Streams\Platform\Model\EloquentCollection;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Cache\Repository;
@@ -56,6 +57,26 @@ class FilesFieldType extends FieldType implements SelfHandling
     public function __construct(Repository $cache)
     {
         $this->cache = $cache;
+    }
+
+    /**
+     * Return the ids.
+     *
+     * @return array|mixed|static
+     */
+    public function ids()
+    {
+        // Return post data likely.
+        if (is_array($array = $this->getValue())) {
+            return $array;
+        }
+
+        /* @var EloquentCollection $relation */
+        if ($relation = $this->getValue()) {
+            return $relation->lists('id')->all();
+        }
+
+        return [];
     }
 
     /**
