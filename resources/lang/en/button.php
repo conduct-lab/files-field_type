@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'remove' => 'Remove'
+    'remove' => 'Remove',
 ];

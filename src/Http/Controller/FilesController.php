@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesFieldType\Http\Controller
  */
 class FilesController extends AdminController
 {
@@ -23,7 +22,7 @@ class FilesController extends AdminController
     /**
      * Return an index of existing files.
      *
-     * @param FileTableBuilder $table
+     * @param  FileTableBuilder                           $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(FileTableBuilder $table)
@@ -34,7 +33,7 @@ class FilesController extends AdminController
     /**
      * Return a list of folders to choose from.
      *
-     * @param FolderRepositoryInterface $folders
+     * @param  FolderRepositoryInterface $folders
      * @return \Illuminate\View\View
      */
     public function choose(FolderRepositoryInterface $folders, Repository $cache, Request $request)
@@ -58,7 +57,7 @@ class FilesController extends AdminController
         return $this->view->make(
             'anomaly.field_type.files::choose',
             [
-                'folders' => $allowed
+                'folders' => $allowed,
             ]
         );
     }
@@ -66,7 +65,7 @@ class FilesController extends AdminController
     /**
      * Return a table of select items.
      *
-     * @param ValueTableBuilder $table
+     * @param  ValueTableBuilder $table
      * @return null|string
      */
     public function selected(ValueTableBuilder $table)

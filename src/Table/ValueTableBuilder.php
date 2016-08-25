@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesFieldType\Table
  */
 class ValueTableBuilder extends TableBuilder
 {
@@ -45,7 +44,7 @@ class ValueTableBuilder extends TableBuilder
      */
     protected $columns = [
         'entry.preview' => [
-            'heading' => 'anomaly.module.files::field.preview.name'
+            'heading' => 'anomaly.module.files::field.preview.name',
         ],
         'name'          => [
             'sort_column' => 'name',
@@ -60,15 +59,15 @@ class ValueTableBuilder extends TableBuilder
                 'folder'   => 'entry.folder.slug',
                 'keywords' => 'entry.keywords.labels',
                 'disk'     => 'entry.folder.disk.slug',
-                'size'     => 'entry.size_label'
-            ]
+                'size'     => 'entry.size_label',
+            ],
         ],
         'size'          => [
             'sort_column' => 'size',
-            'value'       => 'entry.readable_size'
+            'value'       => 'entry.readable_size',
         ],
         'mime_type',
-        'folder'
+        'folder',
     ];
 
     /**
@@ -78,12 +77,12 @@ class ValueTableBuilder extends TableBuilder
      */
     protected $buttons = [
         'edit'   => [
-            'href' => 'admin/files/edit/{entry.id}'
+            'href' => 'admin/files/edit/{entry.id}',
         ],
         'remove' => [
             'data-dismiss' => 'file',
-            'data-file'    => 'entry.id'
-        ]
+            'data-file'    => 'entry.id',
+        ],
     ];
 
     /**
@@ -96,7 +95,7 @@ class ValueTableBuilder extends TableBuilder
         'show_headers'       => false,
         'sortable_headers'   => false,
         'table_view'         => 'anomaly.field_type.files::table/table',
-        'no_results_message' => 'anomaly.field_type.files::message.no_files_selected'
+        'no_results_message' => 'anomaly.field_type.files::message.no_files_selected',
     ];
 
     /**
@@ -106,8 +105,8 @@ class ValueTableBuilder extends TableBuilder
      */
     protected $assets = [
         'styles.css' => [
-            'anomaly.field_type.files::less/input.less'
-        ]
+            'anomaly.field_type.files::less/input.less',
+        ],
     ];
 
     /**
@@ -122,7 +121,7 @@ class ValueTableBuilder extends TableBuilder
 
         if ($fieldType = $this->getFieldType()) {
 
-            /**
+            /*
              * If we have the entry available then
              * we can determine saved sort order.
              */
@@ -138,7 +137,7 @@ class ValueTableBuilder extends TableBuilder
             }
         } else {
 
-            /**
+            /*
              * If all we have is ID then just use that.
              * The JS / UI will be handling the sort
              * order at this time.
@@ -160,7 +159,7 @@ class ValueTableBuilder extends TableBuilder
     /**
      * Set the field type.
      *
-     * @param FilesFieldType $fieldType
+     * @param  FilesFieldType $fieldType
      * @return $this
      */
     public function setFieldType(FilesFieldType $fieldType)
@@ -196,7 +195,7 @@ class ValueTableBuilder extends TableBuilder
     /**
      * Set the table entries.
      *
-     * @param \Illuminate\Support\Collection $entries
+     * @param  \Illuminate\Support\Collection $entries
      * @return $this
      */
     public function setTableEntries(\Illuminate\Support\Collection $entries)

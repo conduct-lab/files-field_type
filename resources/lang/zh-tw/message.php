@@ -8,5 +8,5 @@ return [
     'no_uploads'        => '沒有文件上傳。',
     'overwrite'         => '已上傳。您想覆蓋它嗎？',
     'uploading'         => '上傳中',
-    'loading'           => '載入中'
+    'loading'           => '載入中',
 ];

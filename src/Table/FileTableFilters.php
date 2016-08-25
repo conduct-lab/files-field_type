@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesFieldType\Table
  */
 class FileTableFilters
 {
@@ -58,15 +57,15 @@ class FileTableFilters
                         'columns' => [
                             'name',
                             'keywords',
-                            'mime_type'
-                        ]
+                            'mime_type',
+                        ],
                     ],
                     'folder' => [
                         'exact'   => true,
                         'filter'  => 'select',
                         'options' => $allowed,
-                        'enabled' => (count($allowed) !== 1)
-                    ]
+                        'enabled' => (count($allowed) !== 1),
+                    ],
                 ]
             );
     }

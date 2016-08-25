@@ -2,7 +2,7 @@
 
 use Anomaly\FilesModule\Disk\Contract\DiskRepositoryInterface;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Illuminate\Contracts\Bus\SelfHandling;
+
 
 /**
  * Class ValidateDisk
@@ -10,18 +10,17 @@ use Illuminate\Contracts\Bus\SelfHandling;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesFieldType\Validation
  */
-class ValidateDisk implements SelfHandling
+class ValidateDisk
 {
 
 
     /**
      * Handle the validation.
      *
-     * @param FormBuilder             $builder
-     * @param DiskRepositoryInterface $disks
-     * @param                         $attribute
+     * @param  FormBuilder             $builder
+     * @param  DiskRepositoryInterface $disks
+     * @param                          $attribute
      * @return bool
      */
     public function handle(FormBuilder $builder, DiskRepositoryInterface $disks, $attribute)

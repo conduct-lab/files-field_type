@@ -8,19 +8,19 @@ return [
         'config' => [
             'options' => function (FolderRepositoryInterface $folders) {
                 return $folders->all()->lists('name', 'id')->all();
-            }
-        ]
+            },
+        ],
     ],
     'min'     => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
-            'min' => 1
-        ]
+            'min' => 1,
+        ],
     ],
     'max'     => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
-            'min' => 1
-        ]
-    ]
+            'min' => 1,
+        ],
+    ],
 ];

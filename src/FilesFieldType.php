@@ -6,7 +6,6 @@ use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
 use Anomaly\Streams\Platform\Model\EloquentCollection;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -16,9 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @link          http://pyrocms.com/
  * @author        PyroCMS, Inc. <support@pyrocms.com>
  * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\FilesFieldType
  */
-class FilesFieldType extends FieldType implements SelfHandling
+class FilesFieldType extends FieldType
 {
 
     /**
@@ -166,7 +164,7 @@ class FilesFieldType extends FieldType implements SelfHandling
     /**
      * Get the post value.
      *
-     * @param null $default
+     * @param  null  $default
      * @return array
      */
     public function getPostValue($default = null)
