@@ -9,13 +9,6 @@ use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-/**
- * Class FilesFieldType
- *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
- */
 class FilesFieldType extends FieldType
 {
 
@@ -71,7 +64,7 @@ class FilesFieldType extends FieldType
 
         /* @var EloquentCollection $relation */
         if ($relation = $this->getValue()) {
-            return $relation->lists('id')->all();
+            return $relation->pluck('id')->all();
         }
 
         return [];
@@ -198,7 +191,7 @@ class FilesFieldType extends FieldType
         $files = $this->getValue();
 
         if ($files instanceof EntryCollection) {
-            $files = $files->lists('id')->all();
+            $files = $files->pluck('id')->all();
         }
 
         return $table->setFieldType($this)->setUploaded($files)->build()->load()->getTableContent();

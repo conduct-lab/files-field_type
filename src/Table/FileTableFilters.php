@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
  */
 class FileTableFilters
 {
-
     use DispatchesJobs;
 
     /**
@@ -46,7 +45,7 @@ class FileTableFilters
         }
 
         if (!$allowed) {
-            $allowed = $folders->all()->lists('name', 'id')->all();
+            $allowed = $folders->all()->pluck('name', 'id')->all();
         }
 
         $builder
