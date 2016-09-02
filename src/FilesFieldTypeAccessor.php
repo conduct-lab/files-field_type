@@ -37,7 +37,7 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
         } elseif ($value instanceof EntryInterface) {
             $value = $this->organizeSyncValue([$value->getId()]);
         }
-        dd($value);
+        
         if (!$value) {
             $this->fieldType->getRelation()->detach();
 
