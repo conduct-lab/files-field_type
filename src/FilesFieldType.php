@@ -27,6 +27,15 @@ class FilesFieldType extends FieldType
     protected $inputView = 'anomaly.field_type.files::input';
 
     /**
+     * The field type rules.
+     *
+     * @var array
+     */
+    protected $rules = [
+        'array',
+    ];
+
+    /**
      * The field type config.
      *
      * @var array
