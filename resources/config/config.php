@@ -10,26 +10,17 @@ return [
                 return $folders->all()->pluck('name', 'id')->all();
             },
         ],
-        'rules' => [
-            'nullable',
-        ],
     ],
     'min'     => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
             'min' => 1,
         ],
-        'rules' => [
-            'nullable',
-        ],
     ],
     'max'     => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
             'min' => 1,
-        ],
-        'rules' => [
-            'nullable',
         ],
     ],
 ];
