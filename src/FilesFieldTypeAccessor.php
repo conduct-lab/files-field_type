@@ -31,20 +31,20 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
     public function set($value)
     {
         if (is_array($value)) {
-            $this->fieldType->getRelation()->sync($this->organizeSyncValue($value));
-        }
-
-        if ($value instanceof Collection) {
-            $this->fieldType->getRelation()->sync($this->organizeSyncValue($value->all()));
-        }
-
-        if ($value instanceof EntryInterface) {
-            $this->fieldType->getRelation()->sync($this->organizeSyncValue([$value->getId()]));
+            $value = $this->organizeSyncValue($value);
+        } elseif ($value instanceof Collection) {
+            $value = $this->organizeSyncValue($value->all());
+        } elseif ($value instanceof EntryInterface) {
+            $value = $this->organizeSyncValue([$value->getId()]);
         }
 
         if (!$value) {
             $this->fieldType->getRelation()->detach();
+
+            return;
         }
+
+        $this->fieldType->getRelation()->sync($value);
     }
 
     /**
@@ -65,11 +65,12 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
      */
     protected function organizeSyncValue(array $value)
     {
-        return array_filter(
+        $value = array_filter($value);
+
+        $data = array_filter(
             array_combine(
                 array_map(
                     function ($value) {
-
                         if (is_numeric($value)) {
                             return $value;
                         }
