@@ -128,7 +128,7 @@ class ValueTableBuilder extends TableBuilder
             $entry = $fieldType->getEntry();
             $table = $fieldType->getPivotTableName();
 
-            if ($entry->getId()) {
+            if ($entry->getId() && !$uploaded) {
                 $query->join($table, $table . '.file_id', '=', 'files_files.id');
                 $query->where($table . '.entry_id', $entry->getId());
                 $query->orderBy($table . '.sort_order', 'ASC');

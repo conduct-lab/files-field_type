@@ -66,17 +66,13 @@ class FilesFieldType extends FieldType
      */
     public function ids()
     {
-        // Return post data likely.
-        if (is_array($array = $this->getValue())) {
-            return $array;
+        $value = $this->getValue();
+
+        if (is_object($value)) {
+            $value = $value->pluck('id')->all();
         }
 
-        /* @var EloquentCollection $relation */
-        if ($relation = $this->getValue()) {
-            return $relation->pluck('id')->all();
-        }
-
-        return [];
+        return array_filter($value);
     }
 
     /**
@@ -195,14 +191,19 @@ class FilesFieldType extends FieldType
      */
     public function valueTable()
     {
-        $table = app(ValueTableBuilder::class);
+        $table = app(ValueTableBuilder::class)
+            ->setFieldType($this);
 
         $files = $this->getValue();
 
-        if ($files instanceof EntryCollection) {
-            $files = $files->pluck('id')->all();
+        // Arrays are from validatoin.
+        if (!$files instanceof EntryCollection) {
+            $table->setUploaded(array_unique($files));
         }
 
-        return $table->setFieldType($this)->setUploaded($files)->build()->load()->getTableContent();
+        return $table
+            ->build()
+            ->load()
+            ->getTableContent();
     }
 }
