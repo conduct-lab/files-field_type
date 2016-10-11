@@ -35,7 +35,7 @@ class FilesFieldTypeSchema extends FieldTypeSchema
                 $table->integer('file_id');
                 $table->integer('sort_order')->nullable();
 
-                $table->primary(['entry_id', 'file_id']);
+                $table->primary(['entry_id', 'file_id'], 'unique-files');
             }
         );
     }
