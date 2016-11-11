@@ -4,11 +4,17 @@ use Anomaly\FilesFieldType\Table\ValueTableBuilder;
 use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
-use Anomaly\Streams\Platform\Model\EloquentCollection;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Class FilesFieldType
+ *
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
+ */
 class FilesFieldType extends FieldType
 {
 
@@ -162,12 +168,12 @@ class FilesFieldType extends FieldType
     /**
      * Get the post value.
      *
-     * @param  null  $default
+     * @param  null $default
      * @return array
      */
     public function getPostValue($default = null)
     {
-        return explode(',', parent::getPostValue($default));
+        return array_filter(explode(',', parent::getPostValue($default)));
     }
 
     /**
