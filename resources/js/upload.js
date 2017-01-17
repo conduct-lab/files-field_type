@@ -17,7 +17,7 @@ $(function () {
             paramName: 'upload',
             url: REQUEST_ROOT_PATH + '/streams/files-field_type/handle',
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': CSRF_TOKEN
             },
             init: function () {
                 $('.dropzone').attr('data-initialized', '');
