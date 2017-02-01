@@ -46,7 +46,9 @@ class FilesFieldType extends FieldType
      *
      * @var array
      */
-    protected $config = [];
+    protected $config = [
+        'mode' => 'default',
+    ];
 
     /**
      * The cache repository.
