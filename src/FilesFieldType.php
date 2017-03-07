@@ -204,7 +204,7 @@ class FilesFieldType extends FieldType
 
         $files = $this->getValue();
 
-        // Arrays are from validatoin.
+        // Arrays are from validation.
         if (!$files instanceof EntryCollection) {
             $table->setUploaded(array_unique($files));
         }
