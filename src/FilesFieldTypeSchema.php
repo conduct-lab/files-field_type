@@ -38,7 +38,7 @@ class FilesFieldTypeSchema extends FieldTypeSchema
 
                 $table->unique(
                     ['entry_id', 'file_id'],
-                    $table->getTable() . '_' . $this->fieldType->getField() . '-unique-files'
+                    md5($table->getTable() . '_' . $this->fieldType->getField() . '-unique-files')
                 );
             }
         );
