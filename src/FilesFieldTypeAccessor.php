@@ -55,7 +55,7 @@ class FilesFieldTypeAccessor extends FieldTypeAccessor
         /**
          * First clean our value.
          */
-        $value = array_filter(array_unique($value));
+        $value = array_filter(array_unique((array)$value));
 
         /**
          * Next take the natural array

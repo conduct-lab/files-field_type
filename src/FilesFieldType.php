@@ -80,7 +80,7 @@ class FilesFieldType extends FieldType
             $value = $value->pluck('id')->all();
         }
 
-        return array_filter($value);
+        return array_filter((array)$value);
     }
 
     /**
@@ -206,7 +206,7 @@ class FilesFieldType extends FieldType
 
         // Arrays are from validation.
         if (!$files instanceof EntryCollection) {
-            $table->setUploaded(array_unique($files));
+            $table->setUploaded(array_unique((array)$files));
         }
 
         return $table
