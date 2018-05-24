@@ -127,7 +127,7 @@ class FilesFieldType extends FieldType
         $entry = $this->getEntry();
 
         return $entry->belongsToMany(
-            array_get($this->config, 'related', 'Anomaly\FilesModule\File\FileModel'),
+            $this->getRelatedModel(),
             $this->getPivotTableName(),
             'entry_id',
             'file_id'
@@ -141,7 +141,17 @@ class FilesFieldType extends FieldType
      */
     public function getPivotTableName()
     {
-        return $this->entry->getTableName() . '_' . $this->getField();
+        return $this->getEntryTableName() . '_' . $this->getField();
+    }
+
+    /**
+     * Get the entry table.
+     *
+     * @return string
+     */
+    public function getEntryTableName()
+    {
+        return $this->entry->getTableName();
     }
 
     /**
@@ -151,7 +161,7 @@ class FilesFieldType extends FieldType
      */
     public function getRelatedModel()
     {
-        return $this->container->make(array_get($this->getConfig(), 'related'), 'Anomaly\FilesModule\File\FileModel');
+        return app($this->config('related', 'Anomaly\FilesModule\File\FileModel'));
     }
 
     /**
@@ -213,5 +223,30 @@ class FilesFieldType extends FieldType
             ->build()
             ->load()
             ->getTableContent();
+    }
+
+    /**
+     * Fired after an entry is deleted.
+     *
+     * @param FilesFieldType $fieldType
+     */
+    public function onEntryDeleted()
+    {
+        $pivot   = $this->getPivotTableName();
+        $related = $this->getEntryTableName();
+
+//        $abandoned = app('db')
+//            ->table($pivot)
+//            ->select($pivot . '.id')
+//            ->leftJoin(
+//                $related,
+//                $pivot . '.entry_id',
+//                '=',
+//                $related . '.id'
+//            )
+//            ->whereNull($related . '.id')
+//            ->get();
+
+        //dd($abandoned);
     }
 }
