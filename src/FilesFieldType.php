@@ -135,6 +135,23 @@ class FilesFieldType extends FieldType
     }
 
     /**
+     * Get the unsorted relation.
+     *
+     * @return BelongsToMany
+     */
+    public function getUnsortedRelation()
+    {
+        $entry = $this->getEntry();
+
+        return $entry->belongsToMany(
+            $this->getRelatedModel(),
+            $this->getPivotTableName(),
+            'entry_id',
+            'file_id'
+        );
+    }
+
+    /**
      * Get the pivot table.
      *
      * @return string
