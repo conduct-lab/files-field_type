@@ -87,6 +87,15 @@ class UploadTableBuilder extends TableBuilder
     ];
 
     /**
+     * Add all entries.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'add_all',
+    ];
+
+    /**
      * The table options.
      *
      * @var array

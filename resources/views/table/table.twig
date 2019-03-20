@@ -18,8 +18,10 @@
                     <table class="{{ table.options.class ?: 'table table-striped' }}" {{ table.options.sortable ? 'data-sortable' }} {{ html_attributes(table.options.attributes) }}>
 
                         {% block body %}
-                            {{ view("anomaly.field_type.files::table/partials/body", {'table': table}) }}
+                            {% include "anomaly.field_type.files::table/partials/body" %}
                         {% endblock %}
+
+                        {% include "streams::table/partials/footer" %}
 
                     </table>
                 </div>
