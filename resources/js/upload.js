@@ -3,16 +3,16 @@ Dropzone.autoDiscover = false;
 
 $(function () {
 
-    var uploaded = [];
+    let uploaded = [];
 
-    var uploader = $('#upload');
-    var element = $('.dropzone');
-    var template = uploader.find('.template');
-    var preview = template.html();
+    let uploader = $('#upload');
+    let element = $('.dropzone');
+    let template = uploader.find('.template');
+    let preview = template.html();
 
     template.remove();
 
-    var dropzone = new Dropzone('.dropzone:not(data-initialized)',
+    let dropzone = new Dropzone('.dropzone:not(data-initialized)',
         {
             paramName: 'upload',
             url: REQUEST_ROOT_PATH + '/streams/files-field_type/handle',
@@ -60,7 +60,7 @@ $(function () {
     // When file successfully uploads.
     dropzone.on('success', function (file) {
 
-        var response = JSON.parse(file.xhr.response);
+        let response = JSON.parse(file.xhr.response);
 
         uploaded.push(response.id);
 

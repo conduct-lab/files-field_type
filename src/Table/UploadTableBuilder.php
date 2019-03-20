@@ -92,7 +92,7 @@ class UploadTableBuilder extends TableBuilder
      * @var array
      */
     protected $actions = [
-        'add_all',
+        'add_selected',
     ];
 
     /**

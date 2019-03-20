@@ -105,17 +105,6 @@ class ValueTableBuilder extends TableBuilder
     ];
 
     /**
-     * The table assets.
-     *
-     * @var array
-     */
-    protected $assets = [
-        'styles.css' => [
-            'anomaly.field_type.files::less/input.less',
-        ],
-    ];
-
-    /**
      * Fired just before querying
      * for table entries.
      *

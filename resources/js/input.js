@@ -5,12 +5,12 @@ $(function() {
 
         $(this).attr('data-initialized', '');
 
-        var input = $(this);
-        var field = input.data('field_name');
-        var wrapper = input.closest('.form-group');
-        var modal = $('#' + field + '-modal');
+        let input = $(this);
+        let field = input.data('field_name');
+        let wrapper = input.closest('.form-group');
+        let modal = $('#' + field + '-modal');
 
-        var selected = $('[name="' + field + '"]').val().split(',');
+        let selected = $('[name="' + field + '"]').val().split(',');
 
         wrapper.sort = function() {
             wrapper.find('table').sortable({
@@ -47,6 +47,25 @@ $(function() {
             $('[name="' + field + '"]').val(selected.join(','));
 
             $(this).closest('tr').addClass('success').fadeOut();
+
+            wrapper.find('.selected').load(
+                REQUEST_ROOT_PATH + '/streams/files-field_type/selected?uploaded=' + selected.join(','),
+                function() {
+                    wrapper.sort();
+                }
+            );
+        });
+
+        modal.on('click', '[name="action"][value="add_selected"]', function(e) {
+
+            e.preventDefault();
+
+            $('input[type="checkbox"][data-toggle="action"]:checked').each(function () {
+                selected.push(String($(this).val()));
+                $(this).closest('tr').addClass('success').fadeOut();
+            });
+
+            $('[name="' + field + '"]').val(selected.join(','));
 
             wrapper.find('.selected').load(
                 REQUEST_ROOT_PATH + '/streams/files-field_type/selected?uploaded=' + selected.join(','),
