@@ -5,7 +5,6 @@ use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -49,23 +48,6 @@ class FilesFieldType extends FieldType
     protected $config = [
         'mode' => 'default',
     ];
-
-    /**
-     * The cache repository.
-     *
-     * @var Repository
-     */
-    protected $cache;
-
-    /**
-     * Create a new FileFieldType instance.
-     *
-     * @param Repository $cache
-     */
-    public function __construct(Repository $cache)
-    {
-        $this->cache = $cache;
-    }
 
     /**
      * Return the ids.
@@ -214,7 +196,7 @@ class FilesFieldType extends FieldType
     {
         $key = md5(json_encode($this->getConfig()));
 
-        $this->cache->put('files-field_type::' . $key, $this->getConfig(), 30);
+        cache(['files-field_type::' . $key => $this->getConfig()], 30);
 
         return $key;
     }

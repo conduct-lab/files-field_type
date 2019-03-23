@@ -4,36 +4,43 @@ use Anomaly\FilesFieldType\Table\FileTableBuilder;
 use Anomaly\FilesFieldType\Table\UploadTableBuilder;
 use Anomaly\FilesModule\File\FileUploader;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
+use Anomaly\FilesModule\Folder\Contract\FolderInterface;
 use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class UploadController
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class UploadController extends AdminController
 {
 
-    use DispatchesJobs;
-
     /**
      * Return the uploader.
      *
-     * @param  UploadTableBuilder    $table
-     * @param                        $folder
+     * @param UploadTableBuilder $table
+     * @param $folder
      * @return \Illuminate\View\View
      */
     public function index(UploadTableBuilder $table, $folder)
     {
+        /* @var FolderInterface $folder */
+        $folder = dispatch_now(new GetFolder($folder));
+
+        $config = cache('files-field_type::' . request('key'), []);
+
+        $allowed = array_intersect(array_get($config, 'allowed_types', []), $folder->getAllowedTypes());
+
         return $this->view->make(
             'anomaly.field_type.files::upload/index',
             [
-                'folder' => $this->dispatch(new GetFolder($folder)),
-                'table'  => $table->make()->getTable(),
+                'allowed' => $allowed ?: $folder->getAllowedTypes(),
+                'table'   => $table->make()->getTable(),
+                'folder'  => $folder,
+                'config'  => $config,
             ]
         );
     }
@@ -41,8 +48,8 @@ class UploadController extends AdminController
     /**
      * Upload a file.
      *
-     * @param  FileUploader                  $uploader
-     * @param  FolderRepositoryInterface     $folders
+     * @param  FileUploader $uploader
+     * @param  FolderRepositoryInterface $folders
      * @return \Illuminate\Http\JsonResponse
      */
     public function upload(FileUploader $uploader, FolderRepositoryInterface $folders)
@@ -57,7 +64,7 @@ class UploadController extends AdminController
     /**
      * Return the recently uploaded files.
      *
-     * @param  FileTableBuilder                           $table
+     * @param  FileTableBuilder $table
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function recent(UploadTableBuilder $table)

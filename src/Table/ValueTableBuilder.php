@@ -1,6 +1,5 @@
 <?php namespace Anomaly\FilesFieldType\Table;
 
-use Anomaly\FileFieldType\FileFieldType;
 use Anomaly\FilesFieldType\FilesFieldType;
 use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Ui\Table\TableBuilder;
@@ -26,7 +25,7 @@ class ValueTableBuilder extends TableBuilder
     /**
      * The field type.
      *
-     * @var null|FileFieldType
+     * @var null|FilesFieldType
      */
     protected $fieldType = null;
 
@@ -191,7 +190,7 @@ class ValueTableBuilder extends TableBuilder
      * Set the table entries.
      *
      * @param  \Illuminate\Support\Collection $entries
-     * @return $this
+     * @return ValueTableBuilder|TableBuilder
      */
     public function setTableEntries(\Illuminate\Support\Collection $entries)
     {
