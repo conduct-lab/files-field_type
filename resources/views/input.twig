@@ -1,7 +1,7 @@
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/jquery-sortable.js') }}
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/input.js') }}
 
-{{ asset_add('styles.css', 'anomaly.field_type.files::less/input.less') }}
+{{ asset_add('styles.css', 'anomaly.field_type.files::css/input.css') }}
 
 {% if not (field_type.readonly) %}
     {% if field_type.config.mode in ['default', 'select'] %}
