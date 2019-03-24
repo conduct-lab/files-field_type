@@ -1,4 +1,4 @@
-{{ asset_add('styles.css', 'anomaly.field_type.files::less/upload.less') }}
+{{ asset_add('styles.css', 'anomaly.field_type.files::css/upload.css') }}
 
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/dropzone.min.js') }}
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/upload.js') }}
@@ -13,9 +13,9 @@
 
 <div id="upload">
 
-    {% include "anomaly.field_type.file::upload/partials/header" %}
-    {% include "anomaly.field_type.file::upload/partials/body" %}
-    {% include "anomaly.field_type.file::upload/partials/template" %}
+    {% include "anomaly.field_type.files::upload/partials/header" %}
+    {% include "anomaly.field_type.files::upload/partials/body" %}
+    {% include "anomaly.field_type.files::upload/partials/template" %}
 
     <div class="uploaded">
         {{ table.content|raw }}

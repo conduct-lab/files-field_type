@@ -19,12 +19,10 @@ class FileTableFilters
     use DispatchesJobs;
 
     /**
-     * Handle the filters.
-     *
-     * @param FileTableBuilder          $builder
+     * @param FileTableBuilder $builder
      * @param FolderRepositoryInterface $folders
-     * @param Repository                $cache
-     * @param Request                   $request
+     * @param Repository $cache
+     * @param Request $request
      */
     public function handle(
         FileTableBuilder $builder,
@@ -49,7 +47,6 @@ class FileTableFilters
         }
 
         $builder
-            ->setFolders($allowed)
             ->setFilters(
                 [
                     'search' => [
