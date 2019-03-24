@@ -62,6 +62,6 @@ class UploadController extends AdminController
      */
     public function recent(UploadTableBuilder $table)
     {
-        return $table->setUploaded(explode(',', $this->request->get('uploaded')))->render();
+        return $table->setUploaded(array_filter(explode(',', $this->request->get('uploaded'))))->render();
     }
 }
