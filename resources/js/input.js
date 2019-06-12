@@ -38,6 +38,15 @@ $(function() {
 
         wrapper.sort();
 
+        $(wrapper).on('click', '[data-remove="all"]', function(e) {
+
+            e.preventDefault();
+
+            $(wrapper).find('[data-dismiss="file"]').each(function() {
+                $(this).click();
+            });
+        });
+
         modal.on('click', '[data-file]', function(e) {
 
             e.preventDefault();
