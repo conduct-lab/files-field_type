@@ -208,6 +208,7 @@ class FilesFieldType extends FieldType
      */
     public function valueTable()
     {
+        /* @var ValueTableBuilder $table */
         $table = app(ValueTableBuilder::class)
             ->setFieldType($this);
 
@@ -216,6 +217,10 @@ class FilesFieldType extends FieldType
         // Arrays are from validation.
         if (!$files instanceof EntryCollection) {
             $table->setUploaded(array_unique((array)$files));
+        }
+
+        if ($files instanceof EntryCollection) {
+            $table->setUploaded($files->ids());
         }
 
         return $table
