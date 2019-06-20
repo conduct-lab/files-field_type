@@ -4,6 +4,8 @@ use Anomaly\FilesFieldType\Table\ValueTableBuilder;
 use Anomaly\FilesModule\File\FileModel;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Anomaly\Streams\Platform\Entry\EntryCollection;
+use Anomaly\Streams\Platform\Model\EloquentCollection;
+use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -252,5 +254,33 @@ class FilesFieldType extends FieldType
 //            ->get();
 
         //dd($abandoned);
+    }
+
+    /**
+     * Fired just before version comparison.
+     *
+     * @param EloquentCollection $related
+     */
+    public function toArrayForComparison(EloquentCollection $related)
+    {
+        return $related->map(
+            function (EloquentModel $model) {
+                return array_diff_key(
+                    $model->toArrayWithRelations(),
+                    array_flip(
+                        [
+                            'id',
+                            'sort_order',
+                            'created_at',
+                            'created_by_id',
+                            'updated_at',
+                            'updated_by_id',
+                            'deleted_at',
+                            'deleted_by_id',
+                        ]
+                    )
+                );
+            }
+        )->toArray();
     }
 }
