@@ -3,12 +3,12 @@
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/dropzone.min.js') }}
 {{ asset_add('scripts.js', 'anomaly.field_type.files::js/upload.js') }}
 
-{% for path in asset_paths("styles.css") %}
-    {{ html_style(path) }}
+{% for style in asset_styles("styles.css") %}
+    {{ style|raw }}
 {% endfor %}
 
-{% for path in asset_paths("scripts.js") %}
-    {{ html_script(path) }}
+{% for script in asset_scripts("scripts.js") %}
+    {{ script|raw }}
 {% endfor %}
 
 <div id="upload">
