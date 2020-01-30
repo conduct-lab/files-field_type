@@ -8,6 +8,8 @@ use Anomaly\Streams\Platform\Model\EloquentCollection;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * Class FilesFieldType
@@ -95,8 +97,7 @@ class FilesFieldType extends FieldType
     public function getConfig()
     {
         $config = parent::getConfig();
-
-        array_set($config, 'folders', (array)$this->config('folders', []));
+        Arr::set($config, 'folders', (array)$this->config('folders', []));
 
         return $config;
     }
@@ -196,11 +197,7 @@ class FilesFieldType extends FieldType
      */
     public function configKey()
     {
-        $key = md5(json_encode($this->getConfig()));
-
-        cache(['files-field_type::' . $key => $this->getConfig()], 30);
-
-        return $key;
+        return Crypt::encrypt($this->getConfig());;
     }
 
     /**
