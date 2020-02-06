@@ -25,14 +25,15 @@ class UploadController extends AdminController
      *
      * @param UploadTableBuilder $table
      * @param $folder
+     * @param $key
      * @return \Illuminate\View\View
      */
-    public function index(UploadTableBuilder $table, $folder)
+    public function index(UploadTableBuilder $table, $folder, $key)
     {
         /* @var FolderInterface $folder */
         $folder = dispatch_now(new GetFolder($folder));
 
-        $config = Crypt::decrypt(request('key'));
+        $config = Crypt::decrypt($key);
 
         $allowed = array_intersect(Arr::get($config, 'allowed_types', []), $folder->getAllowedTypes());
 
