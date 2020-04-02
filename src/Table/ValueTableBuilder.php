@@ -126,10 +126,12 @@ class ValueTableBuilder extends TableBuilder
                 $query->join($table, $table . '.file_id', '=', 'files_files.id');
                 $query->where($table . '.entry_id', $entry->getId());
                 $query->orderBy($table . '.sort_order', 'ASC');
-            } else {
-                $query->whereIn($table . '.entry_id', $uploaded ?: [0]);
+            } elseif ($entry->getId()) {
+                $query->where($table . '.entry_id', $entry->getId());
                 $query->join($table, $table . '.file_id', '=', 'files_files.id');
                 $query->orderBy($table . '.sort_order', 'ASC');
+            } else {
+                $query->whereIn('id', $uploaded ?: [0]);
             }
         } else {
 
