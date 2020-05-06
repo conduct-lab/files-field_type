@@ -1,4 +1,6 @@
-<?php namespace Anomaly\FilesFieldType\Table;
+<?php
+
+namespace Anomaly\FilesFieldType\Table;
 
 use Anomaly\FilesModule\File\FileModel;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
@@ -88,6 +90,15 @@ class FileTableBuilder extends TableBuilder
     protected $options = [
         'enable_views' => false,
         'title'        => 'anomaly.field_type.files::message.choose_files',
+    ];
+
+    /**
+     * Add all entries.
+     *
+     * @var array
+     */
+    protected $actions = [
+        'add_selected',
     ];
 
     /**
