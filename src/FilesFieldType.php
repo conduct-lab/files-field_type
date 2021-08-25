@@ -1,15 +1,15 @@
 <?php namespace Anomaly\FilesFieldType;
 
-use Anomaly\FilesFieldType\Table\ValueTableBuilder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Anomaly\FilesModule\File\FileModel;
-use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
-use Anomaly\Streams\Platform\Entry\EntryCollection;
-use Anomaly\Streams\Platform\Model\EloquentCollection;
 use Anomaly\Streams\Platform\Model\EloquentModel;
 use Anomaly\Streams\Platform\Ui\Form\FormBuilder;
+use Anomaly\FilesFieldType\Table\ValueTableBuilder;
+use Anomaly\Streams\Platform\Entry\EntryCollection;
+use Anomaly\Streams\Platform\Model\EloquentCollection;
+use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Crypt;
 
 /**
  * Class FilesFieldType
@@ -197,7 +197,11 @@ class FilesFieldType extends FieldType
      */
     public function configKey()
     {
-        return Crypt::encrypt($this->getConfig());;
+        Cache::remember($this->getInputName() . '-config', 60 * 60 * 24, function () {
+            return $this->getConfig();
+        });
+
+        return $this->getInputName() . '-config';
     }
 
     /**

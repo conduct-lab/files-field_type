@@ -1,14 +1,13 @@
 <?php namespace Anomaly\FilesFieldType\Http\Controller;
 
-use Anomaly\FilesFieldType\Table\FileTableBuilder;
-use Anomaly\FilesFieldType\Table\UploadTableBuilder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Anomaly\FilesModule\File\FileUploader;
 use Anomaly\FilesModule\Folder\Command\GetFolder;
-use Anomaly\FilesModule\Folder\Contract\FolderInterface;
-use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
+use Anomaly\FilesFieldType\Table\FileTableBuilder;
+use Anomaly\FilesFieldType\Table\UploadTableBuilder;
 use Anomaly\Streams\Platform\Http\Controller\AdminController;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Crypt;
+use Anomaly\FilesModule\Folder\Contract\FolderRepositoryInterface;
 
 /**
  * Class UploadController
@@ -33,7 +32,7 @@ class UploadController extends AdminController
         /* @var FolderInterface $folder */
         $folder = dispatch_now(new GetFolder($folder));
 
-        $config = Crypt::decrypt($key);
+        $config = Cache::get($key);
 
         $allowed = array_intersect(Arr::get($config, 'allowed_types', []), $folder->getAllowedTypes());
 
